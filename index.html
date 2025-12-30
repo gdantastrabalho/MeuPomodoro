@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pomodoro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">Pomodoro</div>
+    <div class="top-actions">
+      <button id="btnSettings" class="ghost">Config</button>
+      <button id="btnResetAll" class="ghost">Reset</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card timer-card">
+      <nav class="tabs" aria-label="Modos">
+        <button class="tab active" data-mode="pomodoro">Pomodoro</button>
+        <button class="tab" data-mode="shortBreak">Short Break</button>
+        <button class="tab" data-mode="longBreak">Long Break</button>
+      </nav>
+
+      <div class="timer">
+        <div id="time" class="time" aria-live="polite">25:00</div>
+        <div class="meta">
+          <span>Rodada:</span> <strong id="roundLabel">1</strong>
+          <span class="dot">•</span>
+          <span>Tarefa:</span> <strong id="currentTaskLabel">Nenhuma</strong>
+        </div>
+        <div class="controls">
+          <button id="btnStart" class="primary">Start</button>
+          <button id="btnPause" class="secondary" disabled>Pause</button>
+          <button id="btnSkip" class="ghost">Pular</button>
+        </div>
+      </div>
+
+      <div class="progress">
+        <div class="progress-row">
+          <span>Pomodoros concluídos hoje</span>
+          <strong id="doneCount">0</strong>
+        </div>
+        <div class="bar">
+          <div id="barFill" class="bar-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card tasks-card">
+      <div class="tasks-head">
+        <h2>Tarefas</h2>
+        <button id="btnAddTask" class="primary small">+ Adicionar</button>
+      </div>
+
+      <form id="taskForm" class="task-form hidden">
+        <input id="taskName" placeholder="Nome da tarefa (ex.: Estudar matemática)" required />
+        <div class="row">
+          <label class="inline">
+            Estimativa (pomodoros):
+            <input id="taskEst" type="number" min="1" value="1" required />
+          </label>
+          <div class="form-actions">
+            <button class="secondary small" type="button" id="btnCancelTask">Cancelar</button>
+            <button class="primary small" type="submit">Salvar</button>
+          </div>
+        </div>
+      </form>
+
+      <ul id="taskList" class="task-list"></ul>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog" class="dialog">
+    <form method="dialog" class="dialog-content" id="settingsForm">
+      <h3>Configurações</h3>
+
+      <div class="grid">
+        <label>
+          Pomodoro (min)
+          <input type="number" id="setPomodoro" min="1" value="25" />
+        </label>
+        <label>
+          Short break (min)
+          <input type="number" id="setShort" min="1" value="5" />
+        </label>
+        <label>
+          Long break (min)
+          <input type="number" id="setLong" min="1" value="15" />
+        </label>
+        <label>
+          Long break a cada (pomodoros)
+          <input type="number" id="setLongEvery" min="2" value="4" />
+        </label>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="setAutoStartNext" />
+        Iniciar próximo ciclo automaticamente
+      </label>
+
+      <div class="dialog-actions">
+        <button class="secondary" value="cancel">Cancelar</button>
+        <button class="primary" value="ok">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <audio id="alarm"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
